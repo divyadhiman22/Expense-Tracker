@@ -305,8 +305,20 @@ function addTransaction() {
     printTransaction(transaction);
     printCountTransaction();
     calculateTotals();
+    clearForm();
+    
 }
+function clearForm() {
+    document.getElementById('category').value = '';
+    document.getElementById('desc').value = '';
+    document.getElementById('amount').value = '';
+    document.getElementById('mode').value = '';
+    document.getElementById('date').value = '';
 
+    // Remove active class from buttons
+    document.querySelector("#isincome").classList.remove("active");
+    document.querySelector("#isexpense").classList.remove("active");
+}
 
 // ************ PRINT TRANSACTION FUNCTION ***************************
 function printTransaction(transaction) {

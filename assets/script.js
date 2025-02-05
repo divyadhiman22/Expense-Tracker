@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const joinUsBtn = document.getElementById("join-us-btn");
+    
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("close-btn");
 

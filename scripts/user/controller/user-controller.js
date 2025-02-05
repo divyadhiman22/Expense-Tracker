@@ -60,6 +60,12 @@ function takeUserInput() {
     const { success, message, redirectUrl } = login(user);
 
     showAlert(success ? "Success" : "Registration Failed", message, redirectUrl);
+    clearLoginForm();
+}
+function clearLoginForm() {
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('name').value = '';
 }
 
 function eventBinding() {
