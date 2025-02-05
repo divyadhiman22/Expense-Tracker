@@ -1,37 +1,67 @@
 import User from "../models/user-model.js";
 import { login } from "../services/user-service.js";
 
-// It is a glue between View and model
+// It is a glue between View and Model
 window.addEventListener("load", eventBinding);
+window.addEventListener("load", alertMessages);
+
+function alertMessages() {
+    const modal = document.getElementById("alert-modal");
+    const title = document.getElementById("alert-title");
+    const message = document.getElementById("alert-message");
+    const closeBtn = document.getElementById("alert-close-btn");
+    const okBtn = document.getElementById("alert-ok-btn");
+
+    if (!modal || !title || !message || !closeBtn || !okBtn) {
+        console.error("Alert modal elements not found in the DOM!");
+        return;
+    }
+
+    let redirectUrl = null;
+
+    function showModal(alertTitle, alertMsg = "", url = null) {
+        title.innerText = alertTitle;
+        message.innerText = alertMsg;
+        redirectUrl = url;
+
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            modal.querySelector("div").classList.add("scale-100", "opacity-100");
+        }, 10);
+    }
+
+    function hideModal() {
+        modal.querySelector("div").classList.remove("scale-100", "opacity-100");
+        setTimeout(() => {
+            modal.classList.add("hidden");
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            }
+        }, 300);
+    }
+
+    closeBtn.addEventListener("click", hideModal);
+    okBtn.addEventListener("click", hideModal);
+
+    window.showAlert = showModal;
+}
 
 function takeUserInput() {
-    // Retrieve user inputs
     const email = document.querySelector("#email").value.trim();
     const password = document.querySelector("#password").value.trim();
     const name = document.querySelector("#name").value.trim();
 
-    // Check if all fields are filled
     if (!email || !password || !name) {
-        alert("Please fill in all fields.");
+        showAlert("Error", "Please fill in all fields.");
         return;
     }
 
-    // Create a User object
     const user = new User(email, password, name);
+    const { success, message, redirectUrl } = login(user);
 
-    // Call login and get registration status
-    const registrationStatus = login(user);
-
-    // Redirect to another page only if registration is successful
-    if (registrationStatus) {
-        console.log("Registration successful. Redirecting...");
-        location.href = "income-expense-form.html";
-    } else {
-        console.log("Registration failed.");
-    }
+    showAlert(success ? "Success" : "Registration Failed", message, redirectUrl);
 }
 
 function eventBinding() {
-    // Bind the click event to the "Login" button
     document.querySelector("#goLogin").addEventListener("click", takeUserInput);
 }

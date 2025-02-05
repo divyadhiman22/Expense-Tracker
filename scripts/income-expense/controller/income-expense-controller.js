@@ -5,6 +5,7 @@ import transactionOperations from "../../income-expense/services/income-expense-
 import { initCount } from "../../shared/auto-increment.js";
 import Transaction from "../models/transaction.js";
 
+
 window.addEventListener('load', init);
 
 function init() {
@@ -14,6 +15,43 @@ function init() {
     printCountTransaction();
     transactionOperations.loadFromStorage();
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("alert-modal");
+    const title = document.getElementById("alert-title");
+    // const message = document.getElementById("alert-message");
+    const closeBtn = document.getElementById("alert-close-btn");
+    const okBtn = document.getElementById("alert-ok-btn");
+
+    // Function to show modal
+    function showModal(alertTitle) {
+        title.innerText = alertTitle;
+
+        modal.classList.remove("hidden");
+        modal.querySelector("div").classList.add("scale-100", "opacity-100");
+    }
+
+    // Function to hide modal
+    function hideModal() {
+        modal.classList.add("hidden");
+        modal.querySelector("div").classList.remove("scale-100", "opacity-100");
+    }
+
+    // Close modal on close button click
+    closeBtn.addEventListener("click", hideModal);
+
+    // Close modal on OK button click
+    okBtn.addEventListener("click", hideModal);
+
+    // Expose function to global scope for easy access
+    window.showAlert = showModal;
+});
+
+// Example usage:
+// showAlert("Warning", "This is an alert message!");
+
+
 
 function bindEvents() {
     document.querySelector('#add').addEventListener('click', addTransaction);
@@ -32,8 +70,6 @@ function calculateTotals() {
     const transactions = transactionOperations.getAllTransactions();
     let totalIncome = 0;
     let totalExpense = 0;
-
-    console.log("Transactions are.........", transactions);
 
     transactions.forEach(transaction => {
         if (!transaction.isDeleted) {  // Only consider non-deleted transactions
@@ -133,6 +169,10 @@ function updateCategoryOptions(type) {
     }
 }
 
+
+
+
+// ************ UPDATING TRANSACTION FUNCTION ***************************
 function updateTransactions() {
     const fields = ['category', 'desc', 'amount', 'mode', 'date'];
     for (let field of fields) {
@@ -146,12 +186,11 @@ function updateTransactions() {
     printCountTransaction();
     calculateTotals();
 }
-
+// ************ LOADING TRANSACTION FUNCTION ***************************
 function loadAllTransactions(){
     if(localStorage){
         if(localStorage.transactions){
             const obj = JSON.parse(localStorage.transactions);
-            console.log("Object  is", obj);
             const transactionsArray = obj['transactions-data'];
             const transactions = transactionsArray.map(transactionObj=>{
                 const transaction =  new Transaction();
@@ -167,7 +206,6 @@ function loadAllTransactions(){
                 transaction.category= transactionObj.category;
                 return transaction
             });
-            console.log("loaded transactions........",transactions)
             transactionOperations.transactions = transactions;
             printAllTransactions(transactions);
             printCountTransaction();
@@ -183,11 +221,10 @@ function saveTransactions() {
     const obj = { "transactions-data": transactionOperations.getAllTransactions() }; // We have the data in an array, so we need to convert it into a JSON object
     const json = JSON.stringify(obj);
     if (localStorage) {
-        localStorage.transactions = json; // Store the JSON data in the local storage
-        console.log("Local storage data is", localStorage.transactions);
-        alert("Data saved");
+        localStorage.transactions = json; 
+        showAlert("Data saved");
     } else {
-        alert("Outdated browser");
+        showAlert("Outdated browser");
     }
 }
 
@@ -323,7 +360,6 @@ function edit() {
     const fields = ['category', 'desc', 'amount', 'mode', 'date'];
     const id = this.getAttribute('transaction-id');
     transactionObjectForEdit = transactionOperations.search(id);
-    console.log("Object to be filled:", transactionObjectForEdit);
     for (let field of fields) {
         document.querySelector(`#${field}`).value = transactionObjectForEdit[field];
     }

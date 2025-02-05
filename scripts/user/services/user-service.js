@@ -1,30 +1,19 @@
-// Logic for Login Logout
-//User Related logic will be written here
-
 export function login(userInfo) {
-    if (localStorage) {
-        let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (!localStorage) {
+        return { success: false, message: "Your browser does not support localStorage." };
+    }
 
-        // Check if the email already exists
-        const existingUser = users.find(user => user.email === userInfo.email);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (existingUser) {
-            alert("A user with this email is already registered.");
-            return false; // Registration failed
-        } else {
-            // Add the new user and update localStorage
-            users.push(userInfo);
-            localStorage.setItem("users", JSON.stringify(users));
+    const existingUser = users.find(user => user.email === userInfo.email);
 
-            // Also set the current user in `localStorage`
-            localStorage.setItem("currentUser", JSON.stringify(userInfo));
-
-            alert("Registration successful!");
-            return true; // Registration successful
-        }
+    if (existingUser) {
+        return { success: false, message: "A user with this email already exists." };
     } else {
-        alert("Outdated browser. LocalStorage is not supported.");
-        return false; // Registration failed due to no localStorage support
+        users.push(userInfo);
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("currentUser", JSON.stringify(userInfo));
+
+        return { success: true, message: "Registration successful!", redirectUrl: "income-expense-form.html" };
     }
 }
-

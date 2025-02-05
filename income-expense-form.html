@@ -43,14 +43,14 @@
         <!-- PART 2 START -->
         <div class="row mb-4 ">
             <div class="col-sm-4 col-lg-4 ">
-                <div class="card bg-[#2a2a36] border-none ">
+                <div class="card bg-[#2a2a36] border-none mb-4 sm:mb-6">
                     <div class="card-body flex justify-center items-center flex-col">
                         <h3 class="text-lg font-bold text-white" >TOTAL BALANCE</h3>
                         <h3 class="text-lg font-bold" id="total-balance"></h3>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-lg-4">
+            <div class="col-sm-4 col-lg-4 mb-4 sm:mb-6">
                 <div class="card bg-[#2a2a36] border-none ">
                     <div class="card-body flex justify-center items-center flex-col">
                         <h3 class="text-lg font-bold text-white" >TOTAL INCOME</h3>
@@ -70,17 +70,17 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-12">
-                <div class="card bg-[#2a2a36] border-none">
+                <div class="card bg-[#2a2a36] border-none mb-4 sm:mb-6">
                     <div class="card-body ">
                         <div id="summary">
-                            <h3 class="text-lg font-bold mb-2 text-white">ADD NEW TRANSACTION</h3>
+                            <h3 class="text-lg font-bold mb-2 sm:mb-2 text-white">ADD NEW TRANSACTION</h3>
                             <div class="form-group mb-2">
                                 <label class="text-md font-bold text-white" for="">Choose Category : </label>
-                                <button id="isincome" class="rounded-2 bg-[#e30d62] border-[#e30d62] mr-2 border-2 text-md text-white font-bold px-4 py-2 " >
-                                    INCOME
+                                <button id="isincome" class="rounded-2 bg-[#e30d62] border-[#e30d62] border-2 text-md text-white font-bold px-4 py-2 mb-2 sm:mb-6
+                                        sm:px-3 sm:py-1 sm:text-sm"> INCOME
                                 </button>
-                                <button id="isexpense" class="rounded-2 bg-[#e30d62] border-[#e30d62] border-2 text-md text-white font-bold px-4 py-2 " >
-                                    EXPENSE
+                                <button id="isexpense" class="rounded-2 bg-[#e30d62] border-[#e30d62] border-2 text-md text-white font-bold px-4 py-2 mb-2 sm:mb-6
+                                        sm:px-3 sm:py-1 sm:text-sm"> EXPENSE
                                 </button>
                             </div>
                             <div class="form-group mb-2">
@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12 ">
                 <div class="row mb-4 ">
                     <div class="col-sm-12 mb-4">
                         <div class="card bg-[#2a2a36] border-none ">
@@ -194,6 +194,23 @@
 <!-- PART 3 END -->
  </div>
 <!--  MAIN CONTAINER END -->
+  
+<!-- Alert Modal (Initially Hidden) -->
+<div id="alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-slate-800 w-full max-w-md p-6 rounded-xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="alert-title" class="text-xl font-bold text-white"></h2>
+            <button id="alert-close-btn" class="text-slate-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        <p id="alert-message" class="text-slate-300 mb-4"></p>
+        <button id="alert-ok-btn" class="w-full py-2 bg-[#6b5fa8] text-white rounded-lg font-medium">
+            OK
+        </button>
+    </div>
+
+
 
 
     <!-- Script for bootstrap-->
