@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = true;
 
         if (!validateField(loginEmail, patterns.email, "Enter a valid email")) isValid = false;
-        if (!validateField(loginPassword, patterns.password, "Password must be at least 6 characters with 1 letter & 1 number")) isValid = false;
+        if (!validateField(loginPassword, patterns.password, "Password must be at least 6 characters with atleast one digit character")) isValid = false;
 
         return isValid;
     }
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!validateField(signupName, patterns.name, "Name must contain only letters")) isValid = false;
         if (!validateField(signupEmail, patterns.email, "Enter a valid email")) isValid = false;
-        if (!validateField(signupPassword, patterns.password, "Password must be at least 6 characters with 1 letter & 1 number")) isValid = false;
+        if (!validateField(signupPassword, patterns.password, "Password must be at least 6 characters with atleast one digit character")) isValid = false;
         
         if (signupConfirmPassword.value !== signupPassword.value) {
             showError(signupConfirmPassword, "Passwords do not match");
