@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EASIFY - Intelligent Financial Management</title>
     <script type="module" src="scripts/user/controller/user-controller.js"></script>
+    <script type="module" src="scripts/user/services/user-service.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/style.css">
@@ -120,28 +121,62 @@
 
     <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
         <div class="bg-slate-800 w-full max-w-md p-8 rounded-xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold text-white">Join EASIFY</h2>
+            
+            <!-- Close Button on the Right -->
+            <div class="flex justify-end">
                 <button id="modal-close-btn" class="text-slate-400 hover:text-white transition-colors">
-                    <i class="fas fa-times text-xl"></i>
+                    <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
-            <div class="space-y-6" id="login-form">
+    
+            <!-- Login Form -->
+            <div id="login-form" class="space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" >Email</label>
-                    <input type="email" id="email" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" />
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                    <input type="email" id="login-email" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-300 mb-2">Password</label>
-                    <input type="password" id="password" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" />
+                    <input type="password" id="login-password" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white" />
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2 ">Name</label>
-                    <input type="text" id="name" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" />
-                </div>
-                <button id="goLogin" class="w-full py-3 bg-[#6b5fa8] text-white rounded-lg btn-glow font-medium">
+    
+                <!-- Login Button -->
+                <button id="goLogin" class="w-full py-3 bg-[#6b5fa8] text-white rounded-lg font-medium">
                     Login
                 </button>
+    
+                <!-- Toggle to Signup -->
+                <p class="text-center text-slate-300 text-sm mt-4">
+                    Don't have an account?
+                    <a href="#" id="showSignup" class="text-sky-500 hover:underline transition-colors">Sign Up</a>
+                </p>
+            </div>
+    
+            <!-- Signup Form -->
+            <div id="signup-form" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-slate-300 mb-2">Email</label>
+                    <input type="email" id="signup-email" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-2">Name</label>
+                    <input type="text" id="signup-name" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-2">Password</label>
+                    <input type="password" id="signup-password" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-2">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white">
+                </div>
+                <button id="goSignup" class="w-full py-3 bg-[#6b5fa8] text-white rounded-lg font-medium">
+                    Sign Up
+                </button>
+                <p class="text-center text-slate-300 text-sm mt-2">
+                    Already have an account?
+                    <a href="#" id="showLogin" class="text-sky-500 hover:underline">Login</a>
+                </p>
             </div>
         </div>
     </div>
